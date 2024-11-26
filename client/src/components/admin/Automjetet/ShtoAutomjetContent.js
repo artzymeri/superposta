@@ -51,7 +51,7 @@ const ShtoAutomjetContent = () => {
                                     presenter.handleDatesChange(null);
                                 }
                             },
-                        }} label="Data fillestare" format={'DD/MM/YYYY'} onChange={(newValue) => {
+                        }} label="Data e skadimit" format={'DD/MM/YYYY'} onChange={(newValue) => {
                             presenter.handleDatesChange(newValue);
                         }}/>
                     </LocalizationProvider>
@@ -88,8 +88,9 @@ const ShtoAutomjetContent = () => {
                             multiple
                         />
                     </Button>
-                    <Button style={{gridColumn: 'span 2'}} size="large" variant="contained" onClick={() => {
-                        presenter.addTransport();
+                    <Button style={{gridColumn: 'span 2'}} size="large" variant="contained" onClick={async () => {
+                        await presenter.addTransport();
+                        window.location.reload();
                     }}>Shto Automjet</Button>
                 </div>
             </div>

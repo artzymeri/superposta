@@ -48,16 +48,21 @@ const ShtoShoferContent = () => {
                                }}/>
                     <FormControl fullWidth variant="filled">
                         <NativeSelect
-                            defaultValue={'Prishtina'}
+                            defaultValue={' '}
                             placeholder="Qyteti i Operimit"
                             sx={{height: '100%', background: 'rgba(0, 0, 0, 0.06)', padding: '0px 0px 0px 10px'}}
                             variant="filled"
-                            onChange={(e) => {presenter.changeValues(e, 'location_of_operation')}}
+                            onChange={(e) => {
+                                presenter.changeValues(e, 'location_of_operation')
+                            }}
                             inputProps={{
                                 name: 'location_of_operation',
                                 id: 'location_of_operation_select',
                             }}
                         >
+                            <option value=" " disabled hidden>
+                                Qyteti i Operimit
+                            </option>
                             {
                                 presenter.vm.cities_list.map((item) => {
                                     return (
@@ -81,19 +86,25 @@ const ShtoShoferContent = () => {
                                }}/>
                     <FormControl fullWidth variant="filled">
                         <NativeSelect
-                            placeholder="Vetura"
+                            defaultValue=" "
+                            placeholder="Vetura e Shoferit"
                             sx={{height: '100%', background: 'rgba(0, 0, 0, 0.06)', padding: '0px 0px 0px 10px'}}
                             variant="filled"
-                            onChange={(e) => {presenter.changeValues(e, 'transport')}}
+                            onChange={(e) => {
+                                presenter.changeValues(e, 'transport')
+                            }}
                             inputProps={{
                                 name: 'transport',
                                 id: 'transport',
                             }}
                         >
+                            <option value=" " disabled hidden>
+                                Vetura e Shoferit
+                            </option>
                             {
                                 presenter.transportList.map((item) => {
                                     return (
-                                        <option key={item?.id} value={item?.model}>{item?.model}</option>
+                                        <option key={item?.id} value={item?.id}>{item?.model}</option>
                                     )
                                 })
                             }

@@ -84,6 +84,22 @@ class MainAppRepository {
         return await this.userGateway.deleteTransport(transport_id);
     }
 
+    addDriver = async (driver_details) => {
+        return await this.userGateway.addDriver(driver_details);
+    }
+
+    deleteDriver = async (driver_id) => {
+        return await this.userGateway.deleteDriver(driver_id);
+    }
+
+    addCollector = async (collector_details) => {
+        return await this.userGateway.addCollector(collector_details);
+    }
+
+    deleteCollector = async (collector_id) => {
+        return await this.userGateway.deleteCollector(collector_id);
+    }
+
 }
 
 export default MainAppRepository;

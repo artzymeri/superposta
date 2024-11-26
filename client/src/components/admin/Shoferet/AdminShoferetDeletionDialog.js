@@ -16,7 +16,7 @@ const AdminShoferetDeletionDialog = ({presenter}) => {
                     presenter.setDeletionModal(false)
                 }}>Anulo</Button>
                 <Button variant="contained" color="error" onClick={() => {
-                    presenter.deleteUsers()
+                    presenter.deleteDrivers()
                 }}>Fshij</Button>
             </DialogActions>
         </Dialog>

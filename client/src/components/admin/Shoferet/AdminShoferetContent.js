@@ -14,7 +14,7 @@ const AdminShoferetContent = () => {
     const router = useRouter();
 
     useEffect(() => {
-        presenter.getDriversData()
+        presenter.init()
     }, []);
 
 

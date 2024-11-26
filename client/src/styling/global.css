@@ -15,6 +15,7 @@
 @import "admin/adminmbledhesit.css";
 @import "admin/adminautomjetet.css";
 @import "admin/shtoautomjet.css";
+@import "admin/shtombledhes.css";
 
 :root {
     --primary--font-family: "Lato", sans-serif;

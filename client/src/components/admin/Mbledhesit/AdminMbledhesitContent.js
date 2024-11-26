@@ -2,8 +2,6 @@ import {useEffect} from "react";
 import {container} from "@/architecture/ioc/ioc";
 import {TYPES} from "@/architecture/ioc/types";
 import {observer} from "mobx-react-lite";
-import AdminShoferetHeader from "@/components/admin/Shoferet/AdminShoferetHeader";
-import AdminShoferetList from "@/components/admin/Shoferet/AdminShoferetList";
 import {Button} from "@mui/material";
 import {useRouter} from "next/router";
 import AdminMbledhesitHeader from "@/components/admin/Mbledhesit/AdminMbledhesitHeader";
@@ -11,12 +9,12 @@ import AdminMbledhesitList from "@/components/admin/Mbledhesit/AdminMbledhesitLi
 
 const AdminMbledhesitContent = () => {
 
-    let presenter = container.get(TYPES.AdminShoferetPresenter);
+    let presenter = container.get(TYPES.AdminMbledhesitPresenter);
 
     const router = useRouter();
 
     useEffect(() => {
-        presenter.getDriversData()
+        presenter.init()
     }, []);
 
 

@@ -6,6 +6,11 @@ const AdminShoferetListItem = (props) => {
 
     const {item, presenter} = props;
 
+    const obtainTransportModel = (transport_id) => {
+        const transportDetails = presenter.transportsData.find(transport => transport.id == transport_id);
+        return transportDetails?.model;
+    }
+
     return (<div>
         <div className="admin-shoferet-list-item">
             <Checkbox onChange={() => {
@@ -33,11 +38,11 @@ const AdminShoferetListItem = (props) => {
                 </span>
             </Tooltip>
             <Tooltip placement="top-start" title={item?.transport} arrow>
-                <span>
-                        {item?.transport}
+                <span style={{textAlign: 'center', width: '100%'}}>
+                        {item?.transport ? obtainTransportModel(item?.transport) : 'Nuk ka transport'}
                 </span>
             </Tooltip>
-            <Tooltip placement="top" title="Kliko për të fshirë llogarinë" arrow>
+            <Tooltip placement="top" title="Kliko për të fshirë shoferin" arrow>
                 <IconButton color="error" onClick={() => {
                     presenter.setDeletionModal(true, item?.id)
                 }}>

@@ -70,7 +70,23 @@ class UserGateway {
     }
 
     deleteTransport = async (transport_id) => {
-        return await axios.post(`http://localhost:8080/deletetransport/${transport_id}`);
+        return await axios.post(`http://localhost:8080/deletetransport${transport_id}`);
+    }
+
+    addDriver = async (driver_details) => {
+        return await axios.post('http://localhost:8080/registerdriver', driver_details);
+    }
+
+    deleteDriver = async (driver_id) => {
+        return await axios.post(`http://localhost:8080/deletedriver${driver_id}`);
+    }
+
+    addCollector = async (collector_details) => {
+        return await axios.post('http://localhost:8080/registercollector', collector_details);
+    }
+
+    deleteCollector = async (collector_id) => {
+        return await axios.post(`http://localhost:8080/deletecollector${collector_id}`);
     }
 
 }

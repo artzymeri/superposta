@@ -4,59 +4,68 @@ import "reflect-metadata";
 import {makeObservable, action, observable, computed} from "mobx";
 
 @injectable()
-class AdminAutomjetetPresenter {
+class AdminMbledhesitPresenter {
 
     @inject(TYPES.MainAppRepository) mainAppRepository;
 
     vm = {
-        automjetetData: [],
+        collectorsData: [],
+        transportsData: [],
         deletionModalOpen: false,
-        sortingOption: 'model',
+        sortingOption: 'name_surname',
         sortingMode: 'a-z',
-        searchQuery: '',
+        searchQuery: ''
     }
 
     constructor() {
         makeObservable(this, {
             vm: observable,
-            getAutomjetetData: action.bound,
-            deleteAutomjetet: action.bound,
-            selectAutomjetToDelete: action.bound,
+            getCollectorsData: action.bound,
+            getTransportsData: action.bound,
+            deleteCollectors: action.bound,
             handleSortingMode: action.bound,
             handleSortingOptions: action.bound,
             handleSearchFiltering: action.bound,
             setDeletionModal: action.bound,
-            automjetetData: computed,
+            init: action.bound,
+            collectorsData: computed,
             deletionModalOpen: computed,
             bulkDeletionButtonDisabled: computed
         });
     }
 
-    getAutomjetetData = async () => {
-        const response = await this.mainAppRepository.getAllTransports();
-        this.vm.automjetetData = response.data || [];
+    init = async () => {
+        await this.getCollectorsData();
+        await this.getTransportsData();
     }
 
-    deleteAutomjetet = async () => {
-        for (const automjet of this.vm.automjetetData) {
-            if (automjet.checked) {
-                await this.mainAppRepository.deleteTransport(automjet.id);
+    getCollectorsData = async () => {
+        const response = await this.mainAppRepository.getCollectorsData();
+        this.vm.collectorsData = response.data || [];
+    }
+
+    getTransportsData = async () => {
+        const response = await this.mainAppRepository.getAllTransports();
+        this.vm.transportsData = response.data || [];
+    }
+
+    deleteCollectors = async () => {
+        for (const user of this.vm.collectorsData) {
+            if (user.checked) {
+                await this.mainAppRepository.deleteCollector(user.id);
             }
         }
         this.vm.deletionModalOpen = false;
-        await this.getAutomjetetData()
+        await this.getCollectorsData()
     }
 
-    setDeletionModal = (value, automjet_id) => {
+    setDeletionModal = (value) => {
         this.vm.deletionModalOpen = value;
-        if (automjet_id) {
-            this.selectAutomjetToDelete(automjet_id);
-        }
     }
 
-    selectAutomjetToDelete = (automjet_id) => {
-        const automjetToCheck = this.vm.automjetetData.find((automjet) => automjet.id === automjet_id)
-        automjetToCheck.checked = !automjetToCheck.checked
+    selectUserToDelete = (user_id) => {
+        const userToCheck = this.vm.collectorsData.find((user) => user.id === user_id)
+        userToCheck.checked = !userToCheck.checked
     }
 
     handleSortingMode(event) {
@@ -67,12 +76,12 @@ class AdminAutomjetetPresenter {
         this.vm.sortingOption = event?.target?.value;
     }
 
-    handleSearchFiltering(event) {
+    handleSearchFiltering(event) {i
         this.vm.searchQuery = event?.target?.value.toLowerCase();
     }
 
-    get automjetetData() {
-        const normalizedData = this.vm.automjetetData.map((automjet) => ({...automjet, checked: false}))
+    get collectorsData() {
+        const normalizedData = this.vm.collectorsData.map((user) => ({...user, checked: false}))
 
         const filteredData = normalizedData.filter(item => {
             const itemValue = item[this.vm.sortingOption]?.toString().toLowerCase() || '';
@@ -96,15 +105,19 @@ class AdminAutomjetetPresenter {
         return filteredData;
     }
 
+    get transportsData() {
+        return this.vm.transportsData;
+    }
+
 
     get deletionModalOpen() {
         return this.vm.deletionModalOpen;
     }
 
     get bulkDeletionButtonDisabled() {
-        return !this.vm.automjetetData.some((automjet) => automjet.checked);
+        return !this.vm.collectorsData.some((user) => user.checked);
     }
 
 }
 
-export default AdminAutomjetetPresenter;
+export default AdminMbledhesitPresenter;

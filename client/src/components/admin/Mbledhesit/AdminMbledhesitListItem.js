@@ -6,6 +6,11 @@ const AdminMbledhesitListItem = (props) => {
 
     const {item, presenter} = props;
 
+    const obtainTransportModel = (transport_id) => {
+        const transportDetails = presenter.transportsData.find(transport => transport.id == transport_id);
+        return transportDetails?.model;
+    }
+
     return (
         <div>
             <div className="admin-mbledhesit-list-item">
@@ -34,8 +39,8 @@ const AdminMbledhesitListItem = (props) => {
                 </span>
                 </Tooltip>
                 <Tooltip placement="top-start" title={item?.transport} arrow>
-                <span>
-                        {item?.transport}
+                <span style={{textAlign: 'center', width: '100%'}}>
+                        {item?.transport ? obtainTransportModel(item?.transport) : 'Nuk ka transport'}
                 </span>
                 </Tooltip>
                 <Tooltip placement="top" title="Kliko për të fshirë llogarinë" arrow>

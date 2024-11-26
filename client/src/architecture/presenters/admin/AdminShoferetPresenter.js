@@ -10,6 +10,7 @@ class AdminShoferetPresenter {
 
     vm = {
         driversData: [],
+        transportsData: [],
         deletionModalOpen: false,
         sortingOption: 'name_surname',
         sortingMode: 'a-z',
@@ -20,15 +21,22 @@ class AdminShoferetPresenter {
         makeObservable(this, {
             vm: observable,
             getDriversData: action.bound,
-            deleteUsers: action.bound,
+            getTransportsData: action.bound,
+            deleteDrivers: action.bound,
             handleSortingMode: action.bound,
             handleSortingOptions: action.bound,
             handleSearchFiltering: action.bound,
             setDeletionModal: action.bound,
+            init: action.bound,
             driversData: computed,
             deletionModalOpen: computed,
             bulkDeletionButtonDisabled: computed
         });
+    }
+
+    init = async () => {
+        await this.getDriversData();
+        await this.getTransportsData();
     }
 
     getDriversData = async () => {
@@ -36,10 +44,15 @@ class AdminShoferetPresenter {
         this.vm.driversData = response.data || [];
     }
 
-    deleteUsers = async () => {
+    getTransportsData = async () => {
+        const response = await this.mainAppRepository.getAllTransports();
+        this.vm.transportsData = response.data || [];
+    }
+
+    deleteDrivers = async () => {
         for (const user of this.vm.driversData) {
             if (user.checked) {
-                await this.mainAppRepository.deleteUser(user.id);
+                await this.mainAppRepository.deleteDriver(user.id);
             }
         }
         this.vm.deletionModalOpen = false;
@@ -90,6 +103,10 @@ class AdminShoferetPresenter {
         }
 
         return filteredData;
+    }
+
+    get transportsData() {
+        return this.vm.transportsData;
     }
 
 

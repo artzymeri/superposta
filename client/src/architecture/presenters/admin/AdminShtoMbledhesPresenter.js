@@ -5,12 +5,12 @@ import {makeObservable, action, observable, computed} from "mobx";
 import dayjs from "dayjs";
 
 @injectable()
-class AdminShtoShoferPresenter {
+class AdminShtoMbledhesPresenter {
 
     @inject(TYPES.MainAppRepository) MainAppRepository;
 
     vm = {
-        newDriverObject: {
+        newCollectorObject: {
             name_surname: null,
             location_of_operation: null,
             phone_number: null,
@@ -46,9 +46,7 @@ class AdminShtoShoferPresenter {
             { id: 24, state: 'Kosovë', city: 'Vushtrri' },
             { id: 25, state: 'Kosovë', city: 'Zubin Potok' }
         ],
-        transport_list: [
-
-        ],
+        transport_list: [],
         loading_state: false,
     }
 
@@ -56,7 +54,7 @@ class AdminShtoShoferPresenter {
         makeObservable(this, {
             vm: observable,
             changeValues: action.bound,
-            addDriver: action.bound,
+            addCollector: action.bound,
             handleDocumentUpload: action.bound,
             convertFileToBase64: action.bound,
             removeDocumentUpload: action.bound,
@@ -73,7 +71,7 @@ class AdminShtoShoferPresenter {
     }
 
     changeValues(e, target) {
-        this.vm.newDriverObject[target] = e?.target?.value;
+        this.vm.newCollectorObject[target] = e?.target?.value;
     }
 
     async getAllTransports() {
@@ -85,7 +83,7 @@ class AdminShtoShoferPresenter {
         const file = event.target.files?.[0];
         if (file) {
             const base64String = await this.convertFileToBase64(file);
-            this.vm.newDriverObject.document_id = base64String;
+            this.vm.newCollectorObject.document_id = base64String;
         } else {
             console.error("No file selected");
         }
@@ -109,18 +107,18 @@ class AdminShtoShoferPresenter {
     }
 
     removeDocumentUpload = () => {
-        this.vm.newDriverObject.document_id = null
+        this.vm.newCollectorObject.document_id = null
     }
 
-    addDriver = async () => {
-        console.log(this.vm.newDriverObject);
-        await this.MainAppRepository.addDriver(this.vm.newDriverObject);
+    addCollector = async () => {
+        console.log(this.vm.newCollectorObject);
+        await this.MainAppRepository.addCollector(this.vm.newCollectorObject);
     }
 
     get documentUploaded() {
-        return this.vm.newDriverObject.document_id;
+        return this.vm.newCollectorObject.document_id;
     }
-
+i
     get loadingState() {
         return this.vm.loading_state;
     }
@@ -131,4 +129,4 @@ class AdminShtoShoferPresenter {
 
 }
 
-export default AdminShtoShoferPresenter;
+export default AdminShtoMbledhesPresenter;

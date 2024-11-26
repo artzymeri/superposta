@@ -20,16 +20,14 @@ const AdminAutomjetetHeader = ({presenter}) => {
             <FormControl sx={{width: '150px'}} variant="filled">
                 <NativeSelect
                     variant="filled"
-                    defaultValue={'name_surname'}
+                    defaultValue={'model'}
                     onChange={(e) => {
                         presenter.handleSortingOptions(e)
                     }}
                 >
-                    <option value={'name_surname'}>Emri</option>
-                    <option value={'business_name'}>Biznesi</option>
-                    <option value={'location'}>Adresa</option>
-                    <option value={'phone_number'}>Nr. Telefonit</option>
-                    <option value={'email_address'}>Email Llogaria</option>
+                    <option value={'model'}>Modeli</option>
+                    <option value={'tag'}>Tabelat</option>
+                    <option value={'assignee'}>Shoferi</option>
                 </NativeSelect>
             </FormControl>
             <FormControl sx={{width: '150px'}} variant="filled">

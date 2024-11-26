@@ -19,6 +19,8 @@ import AdminShoferetPresenter from "@/architecture/presenters/admin/AdminShofere
 import AdminShtoAutomjetPresenter from "@/architecture/presenters/admin/AdminShtoAutomjetPresenter";
 import AdminAutomjetetPresenter from "@/architecture/presenters/admin/AdminAutomjetetPresenter";
 import AdminShtoShoferPresenter from "@/architecture/presenters/admin/AdminShtoShoferPresenter";
+import AdminMbledhesitPresenter from "@/architecture/presenters/admin/AdminMbledhesitPresenter";
+import AdminShtoMbledhesPresenter from "@/architecture/presenters/admin/AdminShtoMbledhesPresenter";
 
 export const container = new Container({
     autoBindInjectable: true,
@@ -48,11 +50,13 @@ container.bind(TYPES.AdminSidebarPresenter).to(AdminSidebarPresenter)
 container.bind(TYPES.AdminBallinaPresenter).to(AdminBallinaPresenter)
 container.bind(TYPES.AdminKlientetPresenter).to(AdminKlientetPresenter)
 container.bind(TYPES.AdminShoferetPresenter).to(AdminShoferetPresenter)
+container.bind(TYPES.AdminMbledhesitPresenter).to(AdminMbledhesitPresenter)
 container.bind(TYPES.AdminAutomjetetPresenter).to(AdminAutomjetetPresenter)
 container.bind(TYPES.AdminPorositePresenter).to(AdminPorositePresenter)
 container.bind(TYPES.AdminPorosiaPresenter).to(AdminPorosiaPresenter)
 container.bind(TYPES.AdminShtoAutomjetPresenter).to(AdminShtoAutomjetPresenter)
 container.bind(TYPES.AdminShtoShoferPresenter).to(AdminShtoShoferPresenter)
+container.bind(TYPES.AdminShtoMbledhesPresenter).to(AdminShtoMbledhesPresenter)
 container.bind(TYPES.AdminHeaderPresenter).to(AdminHeaderPresenter).inSingletonScope()
 
 

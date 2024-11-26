@@ -23,10 +23,12 @@ export const TYPES = {
     AdminBallinaPresenter: Symbol.for('AdminBallinaPresenter'),
     AdminKlientetPresenter: Symbol.for('AdminKlientetPresenter'),
     AdminShoferetPresenter: Symbol.for('AdminShoferetPresenter'),
+    AdminMbledhesitPresenter: Symbol.for('AdminMbledhesitPresenter'),
     AdminAutomjetetPresenter: Symbol.for('AdminAutomjetetPresenter'),
     AdminPorositePresenter: Symbol.for('AdminPorositePresenter'),
     AdminPorosiaPresenter: Symbol.for('AdminPorosiaPresenter'),
     AdminShtoAutomjetPresenter: Symbol.for('AdminShtoAutomjetPresenter'),
     AdminShtoShoferPresenter: Symbol.for('AdminShtoShoferPresenter'),
+    AdminShtoMbledhesPresenter: Symbol.for('AdminShtoMbledhesPresenter'),
     AdminHeaderPresenter: Symbol.for('AdminHeaderPresenter'),
 }

@@ -15,7 +15,7 @@ const AdminMbledhesitDeletionDialog = ({presenter}) => {
                     presenter.setDeletionModal(false)
                 }}>Anulo</Button>
                 <Button variant="contained" color="error" onClick={() => {
-                    presenter.deleteUsers()
+                    presenter.deleteCollectors()
                 }}>Fshij</Button>
             </DialogActions>
         </Dialog>

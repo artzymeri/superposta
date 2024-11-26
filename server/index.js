@@ -228,16 +228,12 @@ app.get('/klientet', async (req, res) => {
 })
 
 app.get('/drivers', async (req, res) => {
-    const drivers = await users_table.findAll({
-        where: {role: 'driver'}
-    });
+    const drivers = await drivers_table.findAll();
     res.json(drivers);
 })
 
 app.get('/collectors', async (req, res) => {
-    const collectors = await users_table.findAll({
-        where: {role: 'collector'}
-    });
+    const collectors = await collectors_table.findAll();
     res.json(collectors);
 })
 
@@ -488,6 +484,26 @@ app.post('/addtransport', async (req, res) => {
     }
 });
 
+app.post(`/deletetransport:transport_id`, async (req, res) => {
+    const {transport_id} = req.params;
+    try {
+        const transportToDelete = await transport_table.findOne({
+            where: {id: transport_id}
+        })
+        await transportToDelete.destroy();
+        res.json({
+            title: "success",
+            message: "Transporti u fshi me sukses"
+        })
+    } catch (e) {
+        console.log(e)
+        res.json({
+            title: "error",
+            message: "Kërkesa nuk mund të realizohet"
+        })
+    }
+})
+
 app.get(`/alltransports`, async (req, res) => {
     try {
         const transport_array = await transport_table.findAll()
@@ -497,6 +513,119 @@ app.get(`/alltransports`, async (req, res) => {
         res.json({
             title: "error",
             message: "Diçka nuk shkoi në rregull"
+        })
+    }
+})
+
+app.post("/registerdriver", async (req, res) => {
+    try {
+        const {name_surname, phone_number, email_address, password, location_of_operation, document_id, transport} = req.body;
+        const hashedPassword = bcrypt.hashSync(password, 10);
+
+        const newDriver = await drivers_table.create({
+            name_surname,
+            location_of_operation,
+            phone_number,
+            email_address,
+            document_id,
+            password: hashedPassword,
+            transport: null
+        });
+
+        const selectedTransport = await transport_table.findOne({where: {id: transport}});
+
+        selectedTransport.assignee = newDriver?.name_surname;
+
+        newDriver.transport = selectedTransport.id;
+
+        await selectedTransport.save()
+        await newDriver.save();
+
+        res.json({
+            title: "success",
+            message: "Regjistrimi u bë me sukses",
+        });
+    } catch (error) {
+        console.log(error);
+        res.json({
+            title: "error",
+            message: "Kërkesa nuk mund të realizohet"
+        })
+    }
+});
+
+app.post("/registercollector", async (req, res) => {
+    try {
+        const {name_surname, phone_number, email_address, password, location_of_operation, document_id, transport} = req.body;
+        const hashedPassword = bcrypt.hashSync(password, 10);
+
+        const newCollector = await collectors_table.create({
+            name_surname,
+            location_of_operation,
+            phone_number,
+            email_address,
+            document_id,
+            password: hashedPassword,
+            transport: null
+        });
+
+        const selectedTransport = await transport_table.findOne({where: {id: transport}});
+
+        selectedTransport.assignee = newCollector?.name_surname;
+        newCollector.transport = selectedTransport.id;
+
+        await selectedTransport.save()
+        await newCollector.save();
+
+        res.json({
+            title: "success",
+            message: "Regjistrimi u bë me sukses",
+        });
+    } catch (error) {
+        console.log(error);
+        res.json({
+            title: "error",
+            message: "Kërkesa nuk mund të realizohet"
+        })
+    }
+});
+
+app.post(`/deletecollector:collector_id`, async (req, res) => {
+    const {collector_id} = req.params;
+    try {
+        const collectorToDelete = await collectors_table.findOne({
+            where: {id: collector_id}
+        })
+        await collectorToDelete.destroy();
+        res.json({
+            title: "success",
+            message: "Llogaria u fshi me sukses"
+        })
+    } catch (e) {
+        console.log(e)
+        res.json({
+            title: "error",
+            message: "Kërkesa nuk mund të realizohet"
+        })
+    }
+})
+
+app.post(`/deletedriver:driver_id`, async (req, res) => {
+    const {driver_id} = req.params;
+    try {
+        const driverToDelete = await drivers_table.findOne({
+            where: {id: driver_id}
+        })
+        await driverToDelete.destroy();
+        res.json({
+            title: "success",
+            message: "Llogaria u fshi me sukses"
+        })
+    } catch (e) {
+        console.log(e)
+        res.json({
+            title: "error",
+            message: "Kërkesa nuk mund të realizohet"
         })
     }
 })

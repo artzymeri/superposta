@@ -8,11 +8,11 @@ const AdminMbledhesitList = ({presenter}) => {
         <>
             <AdminMbledhesitDeletionDialog presenter={presenter}/>
             <div className="admin-mbledhesit-list-container">
-                {presenter?.driversData.map((item) => {
+                {presenter?.collectorsData.map((item) => {
                     return (<AdminMbledhesitListItem presenter={presenter} key={item?.id}
                                                    item={item}/>)
                 })}
-                {presenter.driversData.length === 0 &&
+                {presenter.collectorsData.length === 0 &&
                     <span style={{width: '100%', textAlign: 'center'}}>Nuk ka të dhëna</span>}
             </div>
         </>
